@@ -1,6 +1,8 @@
 # OpenVINO Model Server (OVMS) - Building from source
 
-Below are the instructions for building OVMS from source. For more detailed instructions: [Click Here](https://github.com/openvinotoolkit/model_server/blob/main/docs/build_from_source.md)
+Below are the instructions for building OVMS from source with a specific OpenVINO branch commit which includes Intel GPU support for Detectron2 MaskRCNN model. 
+
+For more detailed instructions: [Click Here](https://github.com/openvinotoolkit/model_server/blob/main/docs/build_from_source.md)
 ## Prerequisites
 
 1. [Docker Engine](https://docs.docker.com/engine/)
@@ -40,7 +42,7 @@ JOBS=2 # Please donot set this to total number of CPU cores as it may run OOM.
 ````
 **NOTE:** Number of compilation jobs. By default it is set to the number of CPU cores. On hosts with low RAM, this value can be reduced to avoid out of memory errors during the compilation.
 
-## 1.2 Build Benchmark_Client Docker Image:
+### 1.2 Build Benchmark_Client Docker Image:
 
 For more details on OVMS Benchmark_client: [Click here.](https://github.com/openvinotoolkit/model_server/tree/main/demos/benchmark/python)
 
@@ -51,7 +53,7 @@ cd model_server/demos/benchmark/python
 docker build . -t benchmark_client
 ```
 
-# 2. Model Preparation for OVMS serving:
+## 2. Model Preparation for OVMS serving:
 
  Download Mask R-CNN and unzip below folder to <user choosen path> (for ex: "~\home\psakamoori\")
  - Detectron2 Mask R-CNN OpenVINO IR model files: [Download LINK](https://drive.google.com/file/d/1c-g_aY9pCUjaR5cS6uLXav4O4ysSb8z3/view?usp=sharing)
@@ -66,9 +68,9 @@ models
      └── mask_rcnn_R_50_FPN_3x.xml
 ```
 
-# 3. Performance benchmarking
+## 3. Performance benchmarking
 
-## 3.1 Running OVMS model_server
+### 3.1 Running OVMS model_server
 
 `openvino/model_server-gpu:latest` Docker image supports Intel CPU and GPU devices.
 
@@ -102,7 +104,7 @@ openvino/model_server-gpu:latest \
 **Note:** Above command will add Intel GPU device support with `--device /dev/dri` device launch and using dGPU (`--target_device GPU.1` ) as inference acceleartor.
 Without these two options, Intel CPU will be default inference device.
 
-## 3.2 Running benchmark_client:
+### 3.2 Running benchmark_client:
 
 ```bash
 docker run \
