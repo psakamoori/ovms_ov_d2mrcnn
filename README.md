@@ -63,7 +63,7 @@ Docker image with Support for Intel CPU and GPU.
 cd {to models directory root path} (ex: "~\home\psakamoori\")
 
 ```
-docker run -u $(id -u) -v $(pwd)/models:/models -p 9000:9000 -p 9001:9001 --device /dev/dri openvino/model_server-gpu:latest --model_name d2mrcnn --model_path /models/d2mrcnn --port 9001 --rest_port 9000 --target_device GPU.1 --plugin_config "{\"NUM_STREAMS\":\"4\"}" --nireq 8
+docker run -u $(id -u) -v $(pwd)/models:/models -p 9000:9000 -p 9001:9001 --device /dev/dri openvino/model_server-gpu:latest --model_name d2mrcnn --model_path /models/d2mrcnn --port 9001 --rest_port 9000 --target_device GPU.1
 ```
 Note: Above command will add Intel GPU device support with "--device /dev/dri" device launch and using dGPU (--target_device GPU.1 ) as inference acceleartor.
 Without these two options, Intel CPU will be default inference device.
@@ -71,7 +71,7 @@ Without these two options, Intel CPU will be default inference device.
 ## Running benchmark_client:
 
 ```
-docker run --network host benchmark_client -a localhost -r 9000 -m d2mrcnn -p 9001 -c 4 -t 10 -b 3 --print_all
+docker run --network host benchmark_client -a localhost -r 9000 -m d2mrcnn -p 9001 -t 20 -b 3 --print_all
 ```
 
 
